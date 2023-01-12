@@ -3,6 +3,8 @@ import { Outlet, useLocation, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getMovieById } from "Api";
 import { Suspense } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const BASE_IMG_URL = 'https://image.tmdb.org/t/p/w500';
@@ -18,7 +20,7 @@ const MovieDetails = () => {
                 const result = await getMovieById(movieId);
                 setMovie(result);
             } catch {
-                throw new Error
+                toast.error('Ooops! Something went wrong!')
             }
         }
         getMovie();
@@ -51,6 +53,7 @@ const MovieDetails = () => {
             <Suspense fallback={<div>Loading...</div>}>
             <Outlet/>
             </Suspense>
+            <ToastContainer />
         </Box>
     )
 }
